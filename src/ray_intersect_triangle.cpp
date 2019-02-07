@@ -14,8 +14,8 @@ bool ray_intersect_triangle(
   Eigen::RowVector3d t1 = B - A;
   Eigen::RowVector3d t2 = C - A;
 
-  Eigen::RowVector3d v = ray.direction;
-  Eigen::RowVector3d u = A - ray.origin;
+  Eigen::RowVector3d v = Eigen::RowVector3d(ray.direction(0), ray.direction(1), ray.direction(2));
+  Eigen::RowVector3d u = A -  Eigen::RowVector3d(ray.origin(0), ray.origin(1), ray.origin(2));
 
 
 
@@ -40,7 +40,6 @@ bool ray_intersect_triangle(
   }
 
   return false;
-
 
   ////////////////////////////////////////////////////////////////////////////
 }

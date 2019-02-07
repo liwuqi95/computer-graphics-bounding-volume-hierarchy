@@ -8,24 +8,32 @@ bool ray_intersect_box(
         const double max_t) {
     ////////////////////////////////////////////////////////////////////////////
 
+    double max_l, min_l;
+    double temp_min, temp_max;
 
-    double tx_min = ((ray.direction(0) >= 0 ? box.min_corner(0) : box.max_corner(0)) - ray.origin(0)) / ray.direction(0);
-    double tx_max = ((ray.direction(0) >= 0 ? box.max_corner(0) : box.min_corner(0)) - ray.origin(0)) / ray.direction(0);
+    for (int i = 0; i < 3; i++) {
 
-    double ty_min = ((ray.direction(1) >= 0 ? box.min_corner(1) : box.max_corner(1)) - ray.origin(1)) / ray.direction(1);
-    double ty_max = ((ray.direction(1) >= 0 ? box.max_corner(1) : box.min_corner(1)) - ray.origin(1)) / ray.direction(1);
+        if (ray.direction(i) >= 0) {
+            temp_min = box.min_corner(i) - ray.origin(i);
+            temp_max = box.max_corner(i) - ray.origin(i);
+        } else {
+            temp_min = box.max_corner(i) - ray.origin(i);
+            temp_max = box.min_corner(i) - ray.origin(i);
+        }
 
-    double tz_min = ((ray.direction(2) >= 0 ? box.min_corner(2) : box.max_corner(2)) - ray.origin(2)) / ray.direction(2);
-    double tz_max = ((ray.direction(2) >= 0 ? box.max_corner(2) : box.min_corner(2)) - ray.origin(2)) / ray.direction(2);
-
-
-
-    double min = fmin(fmin(tx_max,ty_max),tz_max);
-    double max = fmax(fmax(tx_min,ty_min),tz_min);
-
+        temp_min /= ray.direction(i);
+        temp_max /= ray.direction(i);
 
 
 
-    return (min <= max) && (min >= min_t) && (max <= max_t);
+        if (i == 0 || temp_min > min_l)
+            min_l = temp_min;
+        if (i == 0 || temp_max < max_l)
+            max_l = temp_max;
+    }
+
+
+    return (max_l >= min_l) && (fmin(max_t, max_l) >= fmax(min_t, min_l));
+
     ////////////////////////////////////////////////////////////////////////////
 }

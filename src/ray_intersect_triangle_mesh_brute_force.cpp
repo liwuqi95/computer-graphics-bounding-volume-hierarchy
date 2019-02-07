@@ -10,13 +10,11 @@ bool ray_intersect_triangle_mesh_brute_force(
         double &hit_t,
         int &hit_f) {
     ////////////////////////////////////////////////////////////////////////////
-    // Replace with your code here:
     hit_t = 0;
     hit_f = 0;
 
 
     bool found = false;
-
 
     for (int i = 0; i < F.rows(); i++) {
 
@@ -24,7 +22,7 @@ bool ray_intersect_triangle_mesh_brute_force(
 
         if (ray_intersect_triangle(ray, V.row(F(i, 0)), V.row(F(i, 1)), V.row(F(i, 2)), min_t, max_t, temp_t)) {
 
-            if (temp_t < hit_f || !found) {
+            if (!found || temp_t < hit_t) {
                 found = true;
                 hit_t = temp_t;
                 hit_f = i;
@@ -33,6 +31,5 @@ bool ray_intersect_triangle_mesh_brute_force(
     }
 
     return found;
-
     ////////////////////////////////////////////////////////////////////////////
 }
