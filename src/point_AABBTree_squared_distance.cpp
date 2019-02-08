@@ -18,7 +18,7 @@ bool point_AABBTree_squared_distance(
             cmp);
 
     sqrd = std::numeric_limits<double>::infinity();
-    q.push(std::make_pair(point_box_squared_distance(query, root->box), root));
+    q.emplace(std::make_pair(point_box_squared_distance(query, root->box), root));
 
 
     std::shared_ptr<Object> temp_descendant;
@@ -43,8 +43,8 @@ bool point_AABBTree_squared_distance(
                         descendant = curr->left;
                     }
                 } else {
-                    q.push(std::make_pair(point_box_squared_distance(query, curr->left->box),
-                                          std::static_pointer_cast<AABBTree>(curr->left)));
+                    q.emplace(std::make_pair(point_box_squared_distance(query, curr->left->box),
+                                             std::static_pointer_cast<AABBTree>(curr->left)));
                 }
             }
 
@@ -57,8 +57,8 @@ bool point_AABBTree_squared_distance(
                         descendant = curr->right;
                     }
                 } else {
-                    q.push(std::make_pair(point_box_squared_distance(query, curr->right->box),
-                                          std::static_pointer_cast<AABBTree>(curr->right)));
+                    q.emplace(std::make_pair(point_box_squared_distance(query, curr->right->box),
+                                             std::static_pointer_cast<AABBTree>(curr->right)));
                 }
             }
         }
