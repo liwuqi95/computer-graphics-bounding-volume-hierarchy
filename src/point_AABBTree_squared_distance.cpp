@@ -1,6 +1,5 @@
 #include "point_AABBTree_squared_distance.h"
 #include <queue> // std::priority_queue
-#include <iostream>
 
 bool point_AABBTree_squared_distance(
         const Eigen::RowVector3d &query,
@@ -33,7 +32,7 @@ bool point_AABBTree_squared_distance(
         std::shared_ptr<AABBTree> curr = q.top().second;
         q.pop();
 
-        if (distance < sqrd) {
+        if (distance < sqrd && distance >= min_sqrd && distance <= max_sqrd) {
             if (curr->left) {
                 auto &left_node = *(curr->left);
 
