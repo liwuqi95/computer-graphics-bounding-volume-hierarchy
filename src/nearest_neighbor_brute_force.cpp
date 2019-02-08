@@ -7,9 +7,6 @@ void nearest_neighbor_brute_force(
         int &I,
         double &sqrD) {
     ////////////////////////////////////////////////////////////////////////////
-
-
-
     sqrD = std::numeric_limits<double>::infinity();
 
     double temp_distance;
@@ -24,6 +21,5 @@ void nearest_neighbor_brute_force(
             I = i;
         }
     }
-
     ////////////////////////////////////////////////////////////////////////////
 }
